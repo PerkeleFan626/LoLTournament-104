@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="Header/Header.css">
   <link rel="stylesheet" href="fotter/fotter.css">
   <link rel="stylesheet" href="TournamentPage/TournamentPage.css">
+  <link rel="stylesheet" href="DraftPage/DraftPage.css">
 </head>
 <body>
 
@@ -124,9 +125,148 @@
 
         </section>
 
+        <!-- 3. DRAFT TOOL PAGE CONTENT (#view-draft) -->
+        <section class="tab-view" id="view-draft" aria-labelledby="tab-draft-label">
+          <div class="draft-container">
+            
+            <!-- Draft Header & Controls Card -->
+            <div class="draft-header-card">
+              <div class="draft-title-row">
+                <h2 class="draft-main-title">
+                  <span>⚡</span> Hextech Pro Draft
+                </h2>
+                <div class="draft-status-group">
+                  <span class="draft-timer-badge" id="draft-timer-badge"><span>⏱️</span> <span>30s</span></span>
+                  <span class="draft-phase-badge" id="draft-status-badge">LOBBY READY</span>
+                </div>
+              </div>
+
+              <!-- 30-Second Turn Countdown Progress Bar -->
+              <div class="draft-timer-track">
+                <div class="draft-timer-fill" id="draft-timer-bar" style="width: 100%;"></div>
+              </div>
+
+              <!-- Announcer Banner -->
+              <div class="draft-announcer-banner" id="draft-announcer">
+                <span>⏳ Manual Start Required</span>
+                <span>Click '▶️ Start Draft' to begin 30s turn timer</span>
+              </div>
+
+              <!-- Action Controls -->
+              <div class="draft-action-controls">
+                <button class="btn btn-gold btn-sm" id="btn-start-draft">
+                  <span>▶️ Start Draft</span>
+                </button>
+                <button class="btn btn-secondary btn-sm" id="btn-reset-draft" title="Reset Draft">
+                  <span>🔄 Reset</span>
+                </button>
+                <button class="btn btn-secondary btn-sm" id="btn-auto-pick" title="Auto Pick for current turn">
+                  <span>🎲 Auto Pick</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Draft Arena: Blue Side vs Red Side -->
+            <div class="draft-teams-grid">
+              
+              <!-- Blue Side Team -->
+              <div class="draft-team-panel blue-team">
+                <div class="team-header-strip">
+                  <span class="team-name-tag">🔵 Arcane Blades</span>
+                  <div class="draft-bans-strip">
+                    <span class="bans-label">Bans</span>
+                    <div class="ban-slot" id="blue-ban-0"></div>
+                    <div class="ban-slot" id="blue-ban-1"></div>
+                    <div class="ban-slot" id="blue-ban-2"></div>
+                    <div class="ban-slot" id="blue-ban-3"></div>
+                    <div class="ban-slot" id="blue-ban-4"></div>
+                  </div>
+                </div>
+
+                <div class="draft-picks-list">
+                  <div class="pick-slot empty" id="blue-pick-0"></div>
+                  <div class="pick-slot empty" id="blue-pick-1"></div>
+                  <div class="pick-slot empty" id="blue-pick-2"></div>
+                  <div class="pick-slot empty" id="blue-pick-3"></div>
+                  <div class="pick-slot empty" id="blue-pick-4"></div>
+                </div>
+              </div>
+
+              <!-- Red Side Team -->
+              <div class="draft-team-panel red-team">
+                <div class="team-header-strip">
+                  <span class="team-name-tag">🔴 Dragon Slayers</span>
+                  <div class="draft-bans-strip">
+                    <span class="bans-label">Bans</span>
+                    <div class="ban-slot" id="red-ban-0"></div>
+                    <div class="ban-slot" id="red-ban-1"></div>
+                    <div class="ban-slot" id="red-ban-2"></div>
+                    <div class="ban-slot" id="red-ban-3"></div>
+                    <div class="ban-slot" id="red-ban-4"></div>
+                  </div>
+                </div>
+
+                <div class="draft-picks-list">
+                  <div class="pick-slot empty" id="red-pick-0"></div>
+                  <div class="pick-slot empty" id="red-pick-1"></div>
+                  <div class="pick-slot empty" id="red-pick-2"></div>
+                  <div class="pick-slot empty" id="red-pick-3"></div>
+                  <div class="pick-slot empty" id="red-pick-4"></div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Champion Arena: Search & 6 Tabs -->
+            <div class="champ-arena-card">
+              <div class="champ-arena-header">
+                <h3 class="champ-arena-title">👑 Champion Selection</h3>
+                <span class="champ-count-pill" id="draft-champ-count">168 Champions</span>
+              </div>
+
+              <!-- Search Engine Input -->
+              <div class="champ-search-container">
+                <span class="champ-search-icon">🔍</span>
+                <input type="text" id="draft-champ-search" class="champ-search-input" placeholder="Search champion by name (e.g. Ahri, Zed, Jinx)..." autocomplete="off">
+              </div>
+
+              <!-- 6 Role Tabs: All, Top, Djungle, Mid, ADC, Support -->
+              <div class="champ-role-tabs" id="draft-role-tabs">
+                <button class="role-tab-btn active" data-role="All">
+                  <span>🌐</span> All
+                </button>
+                <button class="role-tab-btn" data-role="Top">
+                  <span>🛡️</span> Top
+                </button>
+                <button class="role-tab-btn" data-role="Djungle">
+                  <span>🌿</span> Djungle
+                </button>
+                <button class="role-tab-btn" data-role="Mid">
+                  <span>⚡</span> Mid
+                </button>
+                <button class="role-tab-btn" data-role="ADC">
+                  <span>🏹</span> ADC
+                </button>
+                <button class="role-tab-btn" data-role="Support">
+                  <span>💖</span> Support
+                </button>
+              </div>
+
+              <!-- Champion Grid Container -->
+              <div class="champ-grid-scroll">
+                <div class="champ-grid" id="draft-champ-grid">
+                  <!-- Rendered dynamically by DraftPage.js -->
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+
       </div> <!-- End app-content-scroll -->
 
-      <!-- 3. FOOTER MODULE (Loaded from fotter/fotter.js & fotter/fotter.html) -->
+      <!-- 4. FOOTER MODULE (Loaded from fotter/fotter.js & fotter/fotter.html) -->
       <div id="footer-slot"></div>
 
       <!-- Toast Notification Container -->
@@ -140,6 +280,11 @@
   <script src="Header/Header.js"></script>
   <script src="fotter/fotter.js"></script>
   <script src="TournamentPage/TournamentPage.js"></script>
+  <script src="DraftPage/draftState.js"></script>
+  <script src="DraftPage/draftTimer.js"></script>
+  <script src="DraftPage/draftEngine.js"></script>
+  <script src="DraftPage/draftUI.js"></script>
+  <script src="DraftPage/DraftPage.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       if (typeof renderHeader === 'function') renderHeader('header-slot');

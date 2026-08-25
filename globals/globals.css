@@ -96,6 +96,74 @@ html, body {
   -webkit-user-select: none;
 }
 
+/* Master App Layout & Simulator Wrappers */
+.app-viewport-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: radial-gradient(circle at 50% 20%, #0d1e38 0%, #02070d 80%);
+  padding: 16px;
+  transition: all var(--transition-normal);
+}
+
+.mobile-device-shell {
+  width: 100%;
+  max-width: 430px;
+  height: 890px;
+  max-height: 94vh;
+  background: var(--bg-deep);
+  border: 2px solid var(--gold-border);
+  border-radius: 36px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.8), 0 0 24px rgba(200, 170, 110, 0.15);
+  transition: max-width var(--transition-normal);
+}
+
+.app-viewport-wrapper.wide-mode .mobile-device-shell {
+  max-width: 768px;
+}
+
+.app-content-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 16px 16px 80px 16px;
+  position: relative;
+}
+
+/* Modular Tab Views */
+.tab-view {
+  display: none;
+}
+
+.tab-view.active {
+  display: block;
+  animation: tabFadeIn 0.22s ease-out;
+}
+
+@keyframes tabFadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+  .app-viewport-wrapper {
+    padding: 0;
+    min-height: 100%;
+  }
+  .mobile-device-shell {
+    max-width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+    border: none;
+  }
+}
+
 /* Global Custom Scrollbars */
 ::-webkit-scrollbar {
   width: 5px;
