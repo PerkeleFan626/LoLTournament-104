@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Nexus Clash — Summoner Profile Hub</title>
+  <meta name="description" content="Player summoner profile, ranked ladder statistics, champion mastery, and match history.">
+  <meta name="theme-color" content="#060e18">
+
+  <!-- Modular CSS Stylesheets -->
+  <link rel="stylesheet" href="../globals/globals.css">
+  <link rel="stylesheet" href="../Header/Header.css">
+  <link rel="stylesheet" href="../fotter/fotter.css">
+  <link rel="stylesheet" href="ProfilePage.css">
+</head>
+<body>
+
+  <!-- App Viewport Wrapper -->
+  <div class="app-viewport-wrapper" id="viewport-wrapper">
+    
+    <!-- Mobile Device Shell -->
+    <main class="mobile-device-shell" id="app-container" role="main">
+
+      <!-- Top Header Slot -->
+      <div id="header-slot"></div>
+
+      <!-- ================= PROFILE PAGE BODY ================= -->
+      <div class="app-content-scroll" id="content-container">
+        <section class="tab-view active" id="view-profile" aria-labelledby="tab-profile-label">
+          <!-- Rendered dynamically by ProfilePage.js -->
+        </section>
+      </div>
+
+      <!-- Sticky Bottom Navigation Bar -->
+      <div id="footer-slot"></div>
+
+      <!-- Toast Container -->
+      <div id="toast-container" aria-live="polite"></div>
+
+    </main>
+  </div>
+
+  <!-- Modular JavaScript Controllers -->
+  <script src="../globals/globals.js"></script>
+  <script src="../Header/Header.js"></script>
+  <script src="../fotter/fotter.js"></script>
+  <script src="ProfilePage.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof renderHeader === 'function') renderHeader('header-slot');
+      if (typeof renderFotter === 'function') renderFotter('footer-slot');
+      if (typeof renderProfileView === 'function') renderProfileView();
+    });
+  </script>
+</body>
+</html>

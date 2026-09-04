@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="fotter/fotter.css">
   <link rel="stylesheet" href="TournamentPage/TournamentPage.css">
   <link rel="stylesheet" href="DraftPage/DraftPage.css">
+  <link rel="stylesheet" href="ProfilePage/ProfilePage.css">
 </head>
 <body>
 
@@ -264,6 +265,11 @@
           </div>
         </section>
 
+        <!-- 4. PROFILE PAGE CONTENT (#view-profile) -->
+        <section class="tab-view" id="view-profile" aria-labelledby="tab-profile-label">
+          <!-- Rendered dynamically by ProfilePage/ProfilePage.js -->
+        </section>
+
       </div> <!-- End app-content-scroll -->
 
       <!-- 4. FOOTER MODULE (Loaded from fotter/fotter.js & fotter/fotter.html) -->
@@ -285,6 +291,7 @@
   <script src="DraftPage/draftEngine.js"></script>
   <script src="DraftPage/draftUI.js"></script>
   <script src="DraftPage/DraftPage.js"></script>
+  <script src="ProfilePage/ProfilePage.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       if (typeof renderHeader === 'function') renderHeader('header-slot');

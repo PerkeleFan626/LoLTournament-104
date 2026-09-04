@@ -9,26 +9,34 @@ let LOL_CHAMPIONS_DB = [];
 
 // Asynchronously load champions data directly from JSON file
 async function loadChampionsDatabase() {
-  try {
-    const res = await fetch('DraftPage/champions.json');
-    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
-    const data = await res.json();
-    if (Array.isArray(data) && data.length > 0) {
-      LOL_CHAMPIONS_DB = data;
-      if (typeof renderDraftView === 'function') renderDraftView();
-    }
-  } catch (err) {
-    console.warn('Attempting secondary fallback path for champions.json:', err);
+  // Ordered list of paths to attempt
+  const candidatePaths = [
+    'DraftPage/champions.json',
+    './champions.json',
+    'https://ddragon.leagueoflegends.com/cdn/14.24.1/data/en_US/champion.json' // Remote fallback
+  ];
+
+  for (const path of candidatePaths) {
     try {
-      const res2 = await fetch('./champions.json');
-      if (res2.ok) {
-        LOL_CHAMPIONS_DB = await res2.json();
+      const res = await fetch(path);
+      if (!res.ok) continue; // Try next path if 404/500
+
+      const data = await res.json();
+      
+      // Handle both custom arrays [...] and Riot's { data: { ... } } structure
+      const parsedList = Array.isArray(data) ? data : Object.values(data.data || {});
+
+      if (parsedList.length > 0) {
+        LOL_CHAMPIONS_DB = parsedList;
         if (typeof renderDraftView === 'function') renderDraftView();
+        return; // Success! Exit early
       }
-    } catch (e) {
-      console.error('Failed to load champions JSON file:', e);
+    } catch (err) {
+      console.warn(`Failed loading champions from "${path}":`, err.message);
     }
   }
+
+  console.error('CRITICAL: All champion database paths failed to load.');
 }
 
 // 2. Official Standard League of Legends 10-Ban Tournament Draft Rules (20 Steps)

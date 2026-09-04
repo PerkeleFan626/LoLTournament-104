@@ -44,11 +44,17 @@ LoLTournament-104/
 │   ├── DraftPage.js                 # Complete 168+ LoL champion database, 6 tabs, live search, manual start & turn state machine
 │   └── DRAFT_JS_GUIDE.md            # Step-by-step guide for hand-writing DraftPage.js
 │
+├── ProfilePage/                     # 👤 SUMMONER PROFILE MODULE
+│   ├── ProfilePage.html             # Summoner profile section markup
+│   ├── ProfilePage.css              # Styles for summoner hero banner, ranked cards, combat metrics, champion mastery, match history, and trophy shelf
+│   ├── ProfilePage.js               # Dynamic empty/skeleton card renderer, API data populator (populateProfileData), and reset controls
+│   └── PROFILE_JS_GUIDE.md          # Step-by-step guide for hand-writing ProfilePage.js and API integration
+│
 ├── contextFiles/                    # 📖 PROJECT CONTEXT & AGENT GUIDELINES
 │   ├── CONTEXT.md                   # Complete architectural, state, component, and technical specification
 │   └── GEMINI.md                    # Agent guidelines, coding rules, and conventions
 │
-└── index.html                       # 📱 MASTER SHELL: Assembles Header, active Page body, Draft Tool, Footer, and Scripts
+└── index.html                       # 📱 MASTER SHELL: Assembles Header, active Page body, Draft Tool, Profile, Footer, and Scripts
 ```
 
 ---
@@ -101,9 +107,16 @@ LoLTournament-104/
   - **`draftUI.js`**: DOM rendering engine for the header/announcer, blue/red arena pick/ban slots (`renderDraftArena`), and filtered champion grid (`renderChampionGrid`) with URL-encoded SVG fallbacks.
   - **`DraftPage.js`**: Master controller handling button delegation, role tab switching, live substring search, and DOM initialization.
 
-### 6. `index.html` (Master Single-Page Application Shell)
-- Assembles `#header-slot`, scrollable `#content-container` (holding `#view-tournaments` and `#view-draft`), `#footer-slot`, and `#toast-container`.
-- Imports all stylesheets and loads modular scripts in correct dependency order (`globals.js` $\rightarrow$ `Header.js` $\rightarrow$ `fotter.js` $\rightarrow$ `TournamentPage.js` $\rightarrow$ `draftState.js` $\rightarrow$ `draftTimer.js` $\rightarrow$ `draftEngine.js` $\rightarrow$ `draftUI.js` $\rightarrow$ `DraftPage.js`).
+### 6. `ProfilePage/` (Summoner Profile & Competitive Stats)
+- **`ProfilePage.html` / `ProfilePage.css` / `ProfilePage.js` / `PROFILE_JS_GUIDE.md`**:
+  - **Summoner Hero Banner**: Avatar ring with level badge, Riot ID name/tagline, region pill, and copy/sync buttons.
+  - **API-Ready Empty Cards**: Pre-configured card containers with targeted DOM IDs for Solo/Duo & Flex ranks, combat metrics (KDA, KP%, DPM, Vision), champion mastery list, match history cards, and trophy cabinet.
+  - **Modular Population Engine (`populateProfileData`)**: Pure function accepting an API JSON response object and dynamically rendering all profile elements.
+  - **API Simulation & Reset**: Live testing button with `generateMockApiResponse()` and `clearProfileCards()`.
+
+### 7. `index.html` (Master Single-Page Application Shell)
+- Assembles `#header-slot`, scrollable `#content-container` (holding `#view-tournaments`, `#view-draft`, and `#view-profile`), `#footer-slot`, and `#toast-container`.
+- Imports all stylesheets and loads modular scripts in correct dependency order (`globals.js` $\rightarrow$ `Header.js` $\rightarrow$ `fotter.js` $\rightarrow$ `TournamentPage.js` $\rightarrow$ `draftState.js` $\rightarrow$ `draftTimer.js` $\rightarrow$ `draftEngine.js` $\rightarrow$ `draftUI.js` $\rightarrow$ `DraftPage.js` $\rightarrow$ `ProfilePage.js`).
 
 ---
 

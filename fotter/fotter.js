@@ -68,6 +68,8 @@ function setupBottomNavigation() {
           renderTournaments();
         } else if (targetId === 'view-draft' && typeof renderDraftView === 'function') {
           renderDraftView();
+        } else if (targetId === 'view-profile' && typeof renderProfileView === 'function') {
+          renderProfileView();
         }
       } else {
         if (typeof showToast === 'function') {

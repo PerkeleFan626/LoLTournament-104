@@ -61,6 +61,7 @@ function setupHeader() {
   setupViewModeToggle();
   setupAudioToggle();
   setupNotificationsButton();
+  setupTopProfileClick();
   renderHeaderUserProfile();
 }
 
@@ -144,3 +145,28 @@ function renderHeaderUserProfile() {
     topRankLabel.innerText = `${user.rank} ${user.lp} LP`;
   }
 }
+
+// Step 7: Top Profile Badge Click -> Switch to Profile Tab
+function setupTopProfileClick() {
+  const profileBtn = document.getElementById('top-user-profile-btn');
+  if (profileBtn) {
+    profileBtn.style.cursor = 'pointer';
+    profileBtn.onclick = () => {
+      if (typeof soundEngine !== 'undefined') soundEngine.playClick();
+
+      // Find profile nav button in footer
+      const profileNavBtn = document.querySelector('.bottom-nav-item[data-tab-target="view-profile"]');
+      if (profileNavBtn) {
+        profileNavBtn.click();
+      } else {
+        const targetView = document.getElementById('view-profile');
+        if (targetView) {
+          document.querySelectorAll('.tab-view').forEach(view => view.classList.remove('active'));
+          targetView.classList.add('active');
+          if (typeof renderProfileView === 'function') renderProfileView();
+        }
+      }
+    };
+  }
+}
+
